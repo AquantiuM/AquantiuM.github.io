@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Random Loadout Generator</title>
+  <style>
+    /* Add your CSS styles here */
 
+  body {
+    font-family: 'MARBOLD';
+    font-size: 32px;
+    color:white;
+    background-image: url('background-blur.jpg');
+  }
+  strong {
+    color: wheat;
+  }
+  h1 {
+    color: wheat
+  }
+	.center {
+		width: 50%;
+		margin: auto;
+	}
+	ul.no-bullets {
+	  list-style-type: none;
+	  margin: 0;
+	  padding: 0;
+	}
+  .button {
+  background-color: rgba(255, 255, 255, 0.2);
+  font-family: 'MARBOLD';
+  color: white;
+  padding: 30px 100px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 32px;
+  backdrop-filter: blur(5px);
+  border: 2px solid white;
+  }
+  button:hover {
+    color:wheat;
+    border: 2px solid wheat;
+    font-size:34px;
+  }
+  button:active {
+    color: orange;
+    border: 2px solid orange;
+    font-size:30px;
+  }
+  @font-face {
+    font-family: 'MARBOLD';
+    src: url('MARBOLD.TTF') format('truetype');
+  }
+  .marbold {
+    font-family: 'MARBOLD';
+  }
+  .line {
+    display: inline
+  }
+	.gray-style {
+    color: gray;
+    box-shadow: 0 0 5px white;
+  }
+  </style>
+</head>
+<body>
+  <center>
+    <h1 class="marbold" style="text-shadow: 0 0 10px black">Deceive Inc. Loadout Generator</h1>
+    <hr style="width: 950px; color: wheat; margin-top:-40px; margin-bottom: -20px"></hr>
+
+    <div id="loadoutResult">
+      <h1 class="marbold"><span id="agent"></span></h1>
+      <ul class="no-bullets">
+        <li><strong>Weapon:</strong> <span id="weapon"></span></li>
+        <li><strong>Expertise:</strong> <span id="expertise"></span></li>
+        <li><strong>Passive:</strong> <span id="passive"></span></li>
+      </ul>
+      <p><strong>Field Upgrades:</strong></p>
+      <ul id="fieldUpgrades" class="no-bullets">
+        <li><span class="gray" style="text-shadow: 0 0 5px rgb(200,200,200,1); color: rgb(200,200,200,1)"></span></li>
+        <li><span class="green" style="text-shadow: 0 0 5px lime; color:lime"></span></li>
+        <li><span class="blue" style="text-shadow: 0 0 5px rgb(0,137,255,1); color:rgb(0,137,255,1)"></span></li>
+        <li><span class="purple" style="text-shadow: 0 0 5px rgb(237,0,255,1); color:rgb(237,0,255,1)"></span></li>
+        <li><span class="yellow" style="text-shadow: 0 0 5px yellow; color:yellow"></span></li>
+      </ul>
+      <p><strong>Gadgets:</strong> <span id="gadgets"></span></p>
+    </div>
+
+    <button id="generateButton" class="button">Generate Loadout</button>
+  </center>
+
+  <script>
+    const agents = ["Chavez", "Ace", "Squire", "Madame Xiu", "Hans", "Cavaliere", "Larcin", "Yu-Mi", "Red", "Sasori", "Octo"];
+    const fieldUpgrades = ["Cover Accelerator", "Extended Ammo Pouch", "External Hard-Drive", "Overclock Chip", "Bulletproof Fabric", "Field Agent Kit", "Social Battery", "Nutritional Supplement", "Exfiltration Scanner"];
+    const gadgets = ["Bounce Mat", "Shield-Brella", "Automated Turret", "Goo Pod", "Hack Trap", "Tripwire", "Holo-Mimic", "Signal Scrambler", "Recon Drone", "Spyglass"];
+
+    const loadoutResult = document.getElementById("loadoutResult");
+    const agentSpan = document.getElementById("agent");
+    const weaponSpan = document.getElementById("weapon");
+    const expertiseSpan = document.getElementById("expertise");
+    const passiveSpan = document.getElementById("passive");
+    const fieldUpgradesList = document.getElementById("fieldUpgrades");
+    const gadgetsSpan = document.getElementById("gadgets");
+
+    document.getElementById("generateButton").addEventListener("click", generateLoadout);
+
+    function generateLoadout() {
+      const agent = agents[Math.floor(Math.random() * agents.length)];
+      agentSpan.textContent = agent;
+
+      let maxW = 3;
+      let maxE = 3;
+      let maxP = 3;
+	  
+      weaponSpan.textContent = Math.floor(Math.random() * maxW) + 1;
+      expertiseSpan.textContent = Math.floor(Math.random() * maxE) + 1;
+      passiveSpan.textContent = Math.floor(Math.random() * maxP) + 1;
+
+      const fuTemp = [...fieldUpgrades];
+      fieldUpgradesList.querySelectorAll("li span").forEach((span) => {
+        const randomFU = fuTemp.splice(Math.floor(Math.random() * fuTemp.length), 1)[0];
+        span.textContent = randomFU;
+      });
+
+      const randomGadgets = gadgets.sort(() => 0.5 - Math.random()).slice(0, 2);
+      gadgetsSpan.textContent = randomGadgets.join(", ");
+    }
+
+    generateLoadout(); // Initial loadout generation
+  </script>
+</body>
+</html>
