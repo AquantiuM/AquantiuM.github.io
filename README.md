@@ -1,1 +1,3 @@
-# AquantiuM.github.io
+# randomizeinc.xyz
+
+Deceive Inc. Loadout Randomizer
